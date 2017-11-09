@@ -3,15 +3,15 @@
 Collecting and analyzing data to improve restedness level from sleep.
 
 Target Measures:
-  Movement Level: Objective measure of overall amount of movement during sleep (higher = more movement).
-  Restedness Level: Subjective measure of how rested I feel after waking up (higher = more rested).
+  1) Movement Level: Objective measure of overall amount of movement during sleep (higher = more movement).
+  2) Restedness Level: Subjective measure of how rested I feel after waking up (higher = more rested).
 
 Data Sources:
-  3 x Accelerometer: Track movement levels during sleep.
-  Photoresistor: Track ambient light levels.
-  Temperature/Humidity Sensor: Track temperature and humidity.
-  Caffeine Consumption: Manually input amount of caffeine consumed and time of consumption.
-  Duration of Sleep: Manually input the hours of sleep I had.
+  1) 3 x Accelerometer: Track movement levels during sleep.
+  2) Photoresistor: Track ambient light levels.
+  3) Temperature/Humidity Sensor: Track temperature and humidity.
+  4) Caffeine Consumption: Manually input amount of caffeine consumed and time of consumption.
+  5) Duration of Sleep: Manually input the hours of sleep I had.
   
 Hypotheses:
   1) Lower movement level correlates with increased restedness level.

@@ -19,7 +19,7 @@ Hypotheses:
   3) Movement level will be lower with temperatures in the low 60's Fahrenheit.
   4) Movement level will be lower with decreased amount of caffeine consumption.
   5) Movement level will be lower with longer time between consumption and sleep time.
-  6) Higher duration of sleep correlates with higher restedness level.
+  6) Higher duration of sleep will correlate with higher restedness level.
   
   
 Progress:

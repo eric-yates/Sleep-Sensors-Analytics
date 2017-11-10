@@ -20,8 +20,3 @@ Hypotheses:
   4) Movement level will be lower with decreased amount of caffeine consumption.
   5) Movement level will be lower with longer time between consumption and sleep time.
   6) Higher duration of sleep will correlate with higher restedness level.
-  
-  
-Progress:
-  1) Equipment has arrived. Setting up sensors using an Arduino Uno for collection and a Jetston TX2 for analysis.
-  

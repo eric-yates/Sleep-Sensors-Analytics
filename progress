@@ -9,7 +9,7 @@ Tested photoresistor with Arduino & LED. Script: photoresistor-led.
 
 Soldered right-angle header onto one accelerometer. 
 
-Connected accelertometer with Arduino by flat ribbon cable.
+Connected accelerometer with Arduino by flat ribbon cable.
   VCC -> 3.3V
   GND -> GND
   SCL -> A5

@@ -18,7 +18,7 @@ Connected accelerometer with Arduino by flat ribbon cable.
   INT -> D2
   
 Tested accelerometer for raw data. Script: accelerometer-test.
-Tested accelerometer for a base. Script: accelerometer-base.
+Tested accelerometer for a base to be built on top of. Script: accelerometer-base.
   https://playground.arduino.cc/Main/MPU-6050
   
 Downloaded i2cdevlib.
@@ -27,4 +27,8 @@ Downloaded i2cdevlib.
   Source: https://github.com/jrowberg/i2cdevlib
 
 Moved I2Cdev and MPU6050 libraries from i2cdevlib to ~/Documents/Arduino/libraries.
+
+11/11/17
+
+Simultaneously measured data from an accelerometer and photoresistor. Script: base.
 

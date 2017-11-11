@@ -1,0 +1,30 @@
+11/09/17 
+  
+Photoresistor, 3 x MPU6050 accelerometer, ribbon cable, and soldering kit arrived.
+  
+11/10/17
+  
+Tested photoresistor with Arduino & LED. Script: photoresistor-led.
+  http://www.instructables.com/id/How-to-use-a-photoresistor-or-photocell-Arduino-Tu/
+
+Soldered right-angle header onto one accelerometer. 
+
+Connected accelertometer with Arduino by flat ribbon cable.
+  VCC -> 3.3V
+  GND -> GND
+  SCL -> A5
+  SDA -> A4
+  ADO -> GND
+  INT -> D2
+  
+Tested accelerometer for raw data. Script: accelerometer-test.
+Tested accelerometer for a base. Script: accelerometer-base.
+  https://playground.arduino.cc/Main/MPU-6050
+  
+Downloaded i2cdevlib.
+  Home: https://www.i2cdevlib.com/devices/mpu6050#source
+  Documentation: https://www.i2cdevlib.com/docs/html/class_m_p_u6050.html
+  Source: https://github.com/jrowberg/i2cdevlib
+
+Moved I2Cdev and MPU6050 libraries from i2cdevlib to ~/Documents/Arduino/libraries.
+

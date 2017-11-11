@@ -1,0 +1,36 @@
+/* Use a photoresistor to turn on an LED in the dark.
+   More info and circuit schematic: http://www.ardumotive.com/how-to-use-a-photoresistor-en.html
+   Dev: Michalis Vasilakis // Date: 8/6/2015 // www.ardumotive.com 
+   Modified by: Eric Yates // Date: 11/10/2017 
+
+   Modifications: Change value > 25 to value > 500. Add serial monitoring. Change descriptions. */
+   
+
+//Constants
+const int pResistor = A0; // Photoresistor at Arduino analog pin A0
+const int ledPin=9;       // LED pin at Arduino pin 9
+
+//Variables
+int value;          // Store value from photoresistor (0-1023)
+
+void setup(){
+ pinMode(ledPin, OUTPUT);  // Set lepPin - 9 pin as an output
+ pinMode(pResistor, INPUT);// Set pResistor - A0 pin as an input
+ Serial.begin(9600);
+}
+
+void loop(){
+  value = analogRead(pResistor);
+  Serial.print(value);
+  Serial.print("\n");
+  
+  //Change value to fit desired threshold for brightness level
+  if (value > 500){
+    digitalWrite(ledPin, LOW);  //Turn LED off
+  }
+  else{
+    digitalWrite(ledPin, HIGH); //Turn LED on
+  }
+
+  delay(500); // 500 ms delay
+}

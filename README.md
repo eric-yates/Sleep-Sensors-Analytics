@@ -2,6 +2,8 @@
 
 Collecting and analyzing data to improve restedness level from sleep.
 
+Problem: I've been having poor quality sleep and wake up feeling unrested with "adequate hours" of sleep.
+
 Target Measures:
   1) Movement Level: Objective measure of overall amount of movement during sleep (higher = more movement).
   2) Restedness Level: Subjective measure of how rested I feel after waking up (higher = more rested).

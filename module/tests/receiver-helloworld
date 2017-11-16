@@ -1,0 +1,30 @@
+// Adapted from tutorial at https://learn.sparkfun.com/tutorials/connecting-arduino-to-processing.
+//
+// This script finds the correct serial port to connect with Arduino.
+// First, start the 'sender-helloworld' script on Arduino.
+// Then, load this file with Processing and execute it.
+// The integer in line 16 - Serial.list()[2] - can range from 0, 1, 2,...
+// Try each integer, execute the script, and see if 'Hello, world!' appears in the Processing console.
+// Once the message appears in the Processing console, that is the correct port number.
+
+
+import processing.serial.*;
+
+Serial myPort;
+String val;
+
+void setup()
+{
+  String portName = Serial.list()[2];
+  
+  myPort = new Serial(this, portName, 9600);
+}
+
+void draw()
+{
+  if ( myPort.available() > 0)
+  {
+    val = myPort.readStringUntil('\n');
+    println(val);
+  }
+}

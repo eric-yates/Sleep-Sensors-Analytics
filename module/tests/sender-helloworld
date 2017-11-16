@@ -1,3 +1,10 @@
+// Adapted from tutorial https://learn.sparkfun.com/tutorials/connecting-arduino-to-processing.
+//
+// First, load this script with Arduino and execute it.
+// This script sends a message 'Hello, world!' over the serial port every 0.5 seconds.
+// Then, load the 'receiver-helloworld' script with Processing and follow its instructions.
+// At the end, you'll have the correct serial port that Arduino and Processing communicate over.
+
 void setup()
 {
   Serial.begin(9600);

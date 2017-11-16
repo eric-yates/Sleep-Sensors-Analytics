@@ -40,6 +40,8 @@
 // 
 
 #include <Wire.h>
+#include <dht.h>
+dht DHT;
 
 
 // The name of the sensor is "MPU-6050".
@@ -674,8 +676,12 @@ typedef union accel_t_gyro_union
 const int photoresistorPin = A0; 
 const int ledPin = 9;
 
+#define DHT22_PIN 4
+
 // Variables
-int value;        // Stores values from photoresistor (0-1023)
+int value;        // Stores brightness reading from photoresistor (0-1023)
+float hum;        // Stores humidity reading from DHT-22
+float temp;       // Stores temperature from DHT-22
 
 
 void setup()
@@ -738,6 +744,18 @@ void loop()
   else{
     digitalWrite(ledPin, HIGH); // Turn LED on
   }
+
+  int chk = DHT.read22(DHT22_PIN);
+
+  hum = DHT.humidity;
+  temp = DHT.temperature;
+
+  Serial.print("Humidity: ");
+  Serial.print(hum);
+  Serial.print(" %, Temp: ");
+  Serial.print(temp);
+  Serial.println(" Celsius");
+
   
   int error;
   double dT;

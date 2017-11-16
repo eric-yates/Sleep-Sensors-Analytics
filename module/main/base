@@ -1,5 +1,7 @@
 // Modified by Eric Yates
-// Modifications: Add photoresistor.
+// Modifications: 
+//    Add photoresistor brightness readings. 
+//    Add DHT-22 temperature/humidity readings.
 //
 // MPU-6050 Accelerometer + Gyro
 // -----------------------------

@@ -1,7 +1,9 @@
-// Modified by Eric Yates
+// Modified by Eric Yates.
 // Modifications: 
-//    Add photoresistor brightness readings. 
-//    Add DHT-22 temperature/humidity readings.
+//    Add photoresistor readings.
+//    Add temperature/humidity readings.
+//    Store all data in a sensorVals list.
+//    Connect with Processing to save data to CSV.
 //
 // MPU-6050 Accelerometer + Gyro
 // -----------------------------
@@ -40,15 +42,16 @@
 //      Register 0x6B (PWR_MGMT_2) = 0x40  (I read zero).
 //      Register 0x75 (WHO_AM_I)   = 0x68.
 // 
+// The name of the sensor is "MPU-6050".
+// For program code, I omit the '-', 
+// therefore I use the name "MPU6050....".
+
 
 #include <Wire.h>
+#include <SoftwareSerial.h>
 #include <dht.h>
 dht DHT;
 
-
-// The name of the sensor is "MPU-6050".
-// For program code, I omit the '-', 
-// therefor I use the name "MPU6050....".
 
 
 // Register names according to the datasheet.
@@ -58,7 +61,7 @@ dht DHT;
 // at 0x02 ... 0x18, but according other information 
 // the registers in that unknown area are for gain 
 // and offsets.
-// 
+
 #define MPU6050_AUX_VDDIO          0x01   // R/W
 #define MPU6050_SMPLRT_DIV         0x19   // R/W
 #define MPU6050_CONFIG             0x1A   // R/W
@@ -674,30 +677,32 @@ typedef union accel_t_gyro_union
   } value;
 };
 
+
+
 // Constants
 const int photoresistorPin = A0; 
-const int ledPin = 9;
 
 #define DHT22_PIN 4
 
 // Variables
 int value;        // Stores brightness reading from photoresistor (0-1023)
+
 float hum;        // Stores humidity reading from DHT-22
 float temp;       // Stores temperature from DHT-22
+
+float sensorVals[] = {0,0,0,0,0,0,0,0,0};
+
 
 
 void setup()
 {      
-  pinMode(photoresistorPin, INPUT);  // Set photoresistorPin (A0) as an input
-  pinMode(ledPin, OUTPUT);        // Set ledPin (9) as an output
-
   int error;
   uint8_t c;
 
 
   Serial.begin(9600);
-  Serial.println(F("InvenSense MPU-6050"));
-  Serial.println(F("June 2012"));
+  //Serial.println(F("InvenSense MPU-6050"));
+  //Serial.println(F("June 2012"));
 
   // Initialize the 'Wire' class for the I2C-bus.
   Wire.begin();
@@ -711,20 +716,20 @@ void setup()
   //
 
   error = MPU6050_read (MPU6050_WHO_AM_I, &c, 1);
-  Serial.print(F("WHO_AM_I : "));
-  Serial.print(c,HEX);
-  Serial.print(F(", error = "));
-  Serial.println(error,DEC);
+  //Serial.print(F("WHO_AM_I : "));
+  //Serial.print(c,HEX);
+  //Serial.print(F(", error = "));
+  //Serial.println(error,DEC);
 
   // According to the datasheet, the 'sleep' bit
   // should read a '1'.
   // That bit has to be cleared, since the sensor
   // is in sleep mode at power-up. 
   error = MPU6050_read (MPU6050_PWR_MGMT_1, &c, 1);
-  Serial.print(F("PWR_MGMT_1 : "));
-  Serial.print(c,HEX);
-  Serial.print(F(", error = "));
-  Serial.println(error,DEC);
+  //Serial.print(F("PWR_MGMT_1 : "));
+  //Serial.print(c,HEX);
+  //Serial.print(F(", error = "));
+  //Serial.println(error,DEC);
 
 
   // Clear the 'sleep' bit to start the sensor.
@@ -734,35 +739,10 @@ void setup()
 
 void loop()
 {
-
-  value = analogRead(photoresistorPin);
-  Serial.print("Brightness: ");
-  Serial.print(value);
-  Serial.print("\n");
-
-  if (value > 500){
-    digitalWrite(ledPin, LOW);  // Turn LED off
-  }
-  else{
-    digitalWrite(ledPin, HIGH); // Turn LED on
-  }
-
-  int chk = DHT.read22(DHT22_PIN);
-
-  hum = DHT.humidity;
-  temp = DHT.temperature;
-
-  Serial.print("Humidity: ");
-  Serial.print(hum);
-  Serial.print(" %, Temp: ");
-  Serial.print(temp);
-  Serial.println(" Celsius");
-
-  
   int error;
   double dT;
   accel_t_gyro_union accel_t_gyro;
-
+  
 
   Serial.println(F(""));
 
@@ -773,8 +753,8 @@ void loop()
   // there is no filter enabled, and the values
   // are not very stable.
   error = MPU6050_read (MPU6050_ACCEL_XOUT_H, (uint8_t *) &accel_t_gyro, sizeof(accel_t_gyro));
-  Serial.print(F("Read accel, temp and gyro, error = "));
-  Serial.println(error,DEC);
+  //Serial.print(F("Read accel, temp and gyro, error = "));
+  //Serial.println(error,DEC);
 
 
   // Swap all high and low bytes.
@@ -791,45 +771,41 @@ void loop()
   SWAP (accel_t_gyro.reg.x_gyro_h, accel_t_gyro.reg.x_gyro_l);
   SWAP (accel_t_gyro.reg.y_gyro_h, accel_t_gyro.reg.y_gyro_l);
   SWAP (accel_t_gyro.reg.z_gyro_h, accel_t_gyro.reg.z_gyro_l);
+  
+  
+  int chk = DHT.read22(DHT22_PIN);
+  
+  sensorVals[0] = analogRead(photoresistorPin);     // Brightness
+  sensorVals[1] = DHT.temperature;                  // Temperature
+  sensorVals[2] = DHT.humidity;                     // Humidity
+  sensorVals[3] = accel_t_gyro.value.x_accel;       // x acceleration
+  sensorVals[4] = accel_t_gyro.value.y_accel;       // y acceleration
+  sensorVals[5] = accel_t_gyro.value.z_accel;       // z acceleration
+  sensorVals[6] = accel_t_gyro.value.x_gyro;        // x gyro
+  sensorVals[7] = accel_t_gyro.value.y_gyro;        // y gyro
+  sensorVals[8] = accel_t_gyro.value.z_gyro;        // z gyro
 
+  Serial.print(sensorVals[0]);
+  Serial.print(", ");
+  Serial.print(sensorVals[1]);
+  Serial.print(", ");
+  Serial.print(sensorVals[2]);
+  Serial.print(", ");
+  Serial.print(sensorVals[3]);
+  Serial.print(", ");
+  Serial.print(sensorVals[4]);
+  Serial.print(", ");
+  Serial.print(sensorVals[5]);
+  Serial.print(", ");
+  Serial.print(sensorVals[6]);
+  Serial.print(", ");
+  Serial.print(sensorVals[7]);
+  Serial.print(", ");
+  Serial.println(sensorVals[8]);
 
-  // Print the raw acceleration values
-
-  Serial.print(F("accel x,y,z: "));
-  Serial.print(accel_t_gyro.value.x_accel, DEC);
-  Serial.print(F(", "));
-  Serial.print(accel_t_gyro.value.y_accel, DEC);
-  Serial.print(F(", "));
-  Serial.print(accel_t_gyro.value.z_accel, DEC);
-  Serial.println(F(""));
-
-
-  // The temperature sensor is -40 to +85 degrees Celsius.
-  // It is a signed integer.
-  // According to the datasheet: 
-  //   340 per degrees Celsius, -512 at 35 degrees.
-  // At 0 degrees: -512 - (340 * 35) = -12412
-
-  Serial.print(F("temperature: "));
-  dT = ( (double) accel_t_gyro.value.temperature + 12412.0) / 340.0;
-  Serial.print(dT, 3);
-  Serial.print(F(" degrees Celsius"));
-  Serial.println(F(""));
-
-
-  // Print the raw gyro values.
-
-  Serial.print(F("gyro x,y,z : "));
-  Serial.print(accel_t_gyro.value.x_gyro, DEC);
-  Serial.print(F(", "));
-  Serial.print(accel_t_gyro.value.y_gyro, DEC);
-  Serial.print(F(", "));
-  Serial.print(accel_t_gyro.value.z_gyro, DEC);
-  Serial.print(F(", "));
-  Serial.println(F(""));
-
-  delay(200);
+  delay(500);
 }
+
 
 
 // --------------------------------------------------------
@@ -927,3 +903,48 @@ int MPU6050_write_reg(int reg, uint8_t data)
 
   return (error);
 }
+
+
+// OLD CODE. May be useful someday.
+
+  // The temperature sensor is -40 to +85 degrees Celsius.
+  // It is a signed integer.
+  // According to the datasheet: 
+  //   340 per degrees Celsius, -512 at 35 degrees.
+  // At 0 degrees: -512 - (340 * 35) = -12412
+
+  // Serial.print(F("temperature: "));
+  // dT = ( (double) accel_t_gyro.value.temperature + 12412.0) / 340.0;
+  // Serial.print(dT, 3);
+  // Serial.print(F(" degrees Celsius"));
+  // Serial.println(F(""));
+
+  //Serial.print("Brightness: ");
+  //Serial.println(sensorVals[0]);
+
+  //Serial.print("Temp: ");
+  //Serial.print(sensorVals[1]);
+  //Serial.print(" Celsius, Humidity: ");
+  //Serial.print(sensorVals[2]);
+  //Serial.println("%");
+
+  // Print the raw acceleration values
+
+  //Serial.print(F("Accel x,y,z: "));
+  //Serial.print(sensorVals[3]);
+  //Serial.print(F(", "));
+  //Serial.print(sensorVals[4]);
+  //Serial.print(F(", "));
+  //Serial.print(sensorVals[5]);
+  //Serial.println(F(""));
+
+  // Print the raw gyro values.
+  
+  //Serial.print(F("Gyro x,y,z: "));
+  //Serial.print(sensorVals[6]);
+  //Serial.print(F(", "));
+  //Serial.print(sensorVals[7]);
+  //Serial.print(F(", "));
+  //Serial.print(sensorVals[8]);
+  //Serial.print(F(", "));
+  //Serial.println(F(""));

@@ -4,7 +4,7 @@ Photoresistor, 3 x MPU6050 accelerometer, ribbon cable, and soldering kit arrive
   
 11/10/17
   
-Tested photoresistor with Arduino & LED. Script: photoresistor-led.
+Tested photoresistor with Arduino & LED. Script: tests/photoresistor-led.
   http://www.instructables.com/id/How-to-use-a-photoresistor-or-photocell-Arduino-Tu/
 
 Soldered right-angle header onto one accelerometer. 
@@ -17,8 +17,8 @@ Connected accelerometer with Arduino by flat ribbon cable.
   ADO -> GND
   INT -> D2
   
-Tested accelerometer for raw data. Script: accelerometer-test.
-Tested accelerometer for a base to be built on top of. Script: accelerometer-base.
+Tested accelerometer for raw data. Script: tests/accelerometer-test.
+Tested accelerometer for a base to be built on top of. Script: tests/accelerometer-base.
   https://playground.arduino.cc/Main/MPU-6050
   
 Downloaded i2cdevlib.
@@ -30,5 +30,30 @@ Moved I2Cdev and MPU6050 libraries from i2cdevlib to ~/Documents/Arduino/librari
 
 11/11/17
 
-Simultaneously measured data from an accelerometer and photoresistor. Script: base.
+Simultaneously measured data from an accelerometer and photoresistor. Script: main/base.
+
+11/13/17
+
+DHT-22 temperature/humidity sensor arrived.
+
+11/15/17
+
+Tested DHT-22 sensor for raw data. Script: /tests/dht22-test.
+
+Updated 'main/base' script to take temperature/humidity readings from a DHT-22 sensor.
+Now, the script simultaneously measures acceleration, brightness, temperature, and humidity.
+
+Installed Processing to handle data on computer side.
+  https://processing.org/
+
+Connected Arduino to Processing. Scripts: tests/sender-helloworld Arduino), tests/receiver-helloworld (Processing).
+Arduino and Processing connect over serial port 2 for my Mac.
+  https://learn.sparkfun.com/tutorials/connecting-arduino-to-processing
+  
+Edited and renamed 'main/base' script to 'main/base-arduino'.
+Created a list of all data called sensorVals and sent it over serial port, seperated by commas.
+  
+Created a 'main/base-processing' script to capture Arduino data with Processing.
+This saves the data in sensorVals to CSV.
+  http://www.hackerscapes.com/2014/11/how-to-save-data-from-arduino-to-a-csv-file-using-processing/
 

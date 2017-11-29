@@ -1,3 +1,19 @@
+"""
+This module provides basic visualization of the sensor data:
+temperature, humidity, brightness, x/y/z acceleration, and
+x/y/z angular velocity. These graphs are useful for exploratory
+data analysis.
+
+The 'base-arduino' module collects the data from sensors. Then, the
+'base-processing' module stores the sensor data into a CSV file.
+Finally, this module plots the sensor data.
+
+The tkinter library is used to choose which CSV file to open. The
+pandas library reads the CSV. The numpy library is used to clean up
+the sensor data. The matplotlib.pyplot library plots the sensor data
+into various graphs.
+"""
+
 import pandas as pd
 import numpy as np
 import Tkinter as tk
@@ -10,6 +26,7 @@ from matplotlib import pyplot as plt
 
 
 class LoadFile(tk.Frame):
+    
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, *args, **kwargs)
 
@@ -53,74 +70,34 @@ class LoadFile(tk.Frame):
 
     def quit(self):
         
-        root.quit()                 
+        root.quit()
 
-def visualize(table=None):
+def graph(table=None, index=9, label=None, title=None,
+            xlabel='Time (seconds)', ylabel=None):
 
-##    length = len(table)
-##    x = np.linspace(1, 40000, 40000)
-##
-##    poly_deg = 10
-##    coefs = np.polyfit(x, table.iloc[:, 9], poly_deg)
-##    y_poly = np.polyval(coefs, x)
-##    plt.plot(x, y_poly, label='Polynomial Fit')
-    
-    plt.plot(table.iloc[:, 9], label='Data Points')
-    plt.title('Temperature vs. Time')
-    plt.xlabel('Time (seconds)')
-    plt.ylabel('Temperature (C)')
+    if not title:
+        plt.title('Table[' + str(index) + ']')
+
+    else:
+        plt.title(title)
+
+    plt.plot(table.iloc[:, index], label=label)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     plt.legend()
     plt.show()
 
-    plt.plot(table.iloc[:, 8])
-    plt.title('Brightness vs. Time')
-    plt.xlabel('Time (seconds)')
-    plt.ylabel('Brightness')
-    plt.show()
+def fit_poly(table=None):
 
-    plt.plot(table.iloc[:, 10])
-    plt.title('Humidity vs. Time')
-    plt.xlabel('Time (seconds)')
-    plt.ylabel('Humidity')
-    plt.show()
+    length = len(table)
+    x = np.linspace(1, 40000, 40000)
 
-    plt.plot(table.iloc[:, 11])
-    plt.title('x Acceleration vs. Time')
-    plt.xlabel('Time (seconds)')
-    plt.ylabel('x Acceleration')
-    plt.show()
+    poly_deg = 10
+    coefs = np.polyfit(x, table.iloc[:, 9], poly_deg)
+    y_poly = np.polyval(coefs, x)
+    plt.plot(x, y_poly, label='Polynomial Fit')
 
-    plt.plot(table.iloc[:, 12])
-    plt.title('y Acceleration vs. Time')
-    plt.xlabel('Time (seconds)')
-    plt.ylabel('y Acceleration')
-    plt.show()
-
-    plt.plot(table.iloc[:, 13])
-    plt.title('z Acceleration vs. Time')
-    plt.xlabel('Time (seconds)')
-    plt.ylabel('z Acceleration')
-    plt.show()
-
-    plt.plot(table.iloc[:, 14])
-    plt.title('x  Gyro vs. Time')
-    plt.xlabel('Time (seconds)')
-    plt.ylabel('x Gyro')
-    plt.show()
-
-    plt.plot(table.iloc[:, 15])
-    plt.title('y  Gyro vs. Time')
-    plt.xlabel('Time (seconds)')
-    plt.ylabel('y Gyro')
-    plt.show()
-
-    plt.plot(table.iloc[:, 16])
-    plt.title('z  Gyro vs. Time')
-    plt.xlabel('Time')
-    plt.ylabel('z Gyro')
-    plt.show()
-
-def calculate_movement(table=None):
+def trim_gyro(table=None):
 
     length = len(table)
 
@@ -138,23 +115,45 @@ def calculate_movement(table=None):
     
 if __name__ == "__main__":
     
-    cd = '/Users/ericyates/Documents/Processing/base_processing/Data/'
-
-    path = cd + '2017y-11m-16d-9h-12m.csv'
+    # Choose the directory containing the CSV files.
+    cd = # Typically in the Processing directory.
 
     root = tk.Tk()
     ui = LoadFile(root)
     ui.mainloop()
     root.destroy()
-
-    path = ui.path
-
-
-    df_table = pd.read_csv(path)
+    
+    df_table = pd.read_csv(ui.path)
     np_table = df_table.as_matrix()
 
-    np_table = calculate_movement(table=np_table)
+    # Trims noise from gyrometer values (angular velocity)
+    np_table = trim_gyro(table=np_table)
 
     df_table = pd.DataFrame(np_table)
 
-    visualize(table=df_table)
+    # Temperature
+    graph(table=df_table, index=9, ylabel='Temperature (C)')
+
+    # Humidity
+    graph(table=df_table, index=8, ylabel='Humidity (%)')
+
+    # Brightness
+    graph(table=df_table, index=10, ylabel='Brightness (Ohms)')
+
+    # x Acceleration
+    graph(table=df_table, index=11, ylabel='x Acceleration')
+
+    # y Acceleration
+    graph(table=df_table, index=12, ylabel='y Acceleration')
+
+    # z Acceleration
+    graph(table=df_table, index=13, ylabel='z Acceleration')
+
+    # x Angular Velocity
+    graph(table=df_table, index=14, ylabel='x Angular Velocity')
+
+    # y Angular Velocity
+    graph(table=df_table, index=15, ylabel='y Angular Velocity')
+
+    # z Angular Velocity
+    graph(table=df_table, index=16, ylabel='z Angular Velocity')

@@ -128,34 +128,15 @@ if __name__ == "__main__":
     df_table = pd.read_csv(ui.path)
     np_table = df_table.as_matrix()
 
+    headers = list(df_table.columns.values)
+
     # Trims noise from gyrometer values (angular velocity)
     np_table = trim_gyro(table=np_table)
 
     df_table = pd.DataFrame(np_table)
 
-    # Temperature
-    graph(table=df_table, index=9, ylabel='Temperature (C)')
+    for i in [9, 8, 10, 11, 12, 13, 14, 15, 16]:
+        graph(table=df_table, index=i, ylabel=headers[i])
 
-    # Humidity
-    graph(table=df_table, index=8, ylabel='Humidity (%)')
 
-    # Brightness
-    graph(table=df_table, index=10, ylabel='Brightness (Ohms)')
-
-    # x Acceleration
-    graph(table=df_table, index=11, ylabel='x Acceleration')
-
-    # y Acceleration
-    graph(table=df_table, index=12, ylabel='y Acceleration')
-
-    # z Acceleration
-    graph(table=df_table, index=13, ylabel='z Acceleration')
-
-    # x Angular Velocity
-    graph(table=df_table, index=14, ylabel='x Angular Velocity')
-
-    # y Angular Velocity
-    graph(table=df_table, index=15, ylabel='y Angular Velocity')
-
-    # z Angular Velocity
-    graph(table=df_table, index=16, ylabel='z Angular Velocity')
+  

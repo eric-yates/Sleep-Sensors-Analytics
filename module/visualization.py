@@ -1,4 +1,6 @@
 """
+Author: Eric Yates
+
 This module provides basic visualization of the sensor data:
 temperature, humidity, brightness, x/y/z acceleration, and
 x/y/z angular velocity. These graphs are useful for exploratory

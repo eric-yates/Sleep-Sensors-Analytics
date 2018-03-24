@@ -8,29 +8,22 @@ These instructions will get a copy of the project up and running on your local m
 
 ### Prerequisites
 
-These are the software packages needed to run:
+Instructions for installing these software are listed in the next section: Installing. These are the software packages needed to run:
 
-```
-Python 2.7
-Arduino IDE
-Processing
-```
+* Python 2.7
+* Arduino IDE
+* Processing
 
 These Python packages are also needed:
 
-```
-Tkinter
-numpy
-pandas
-matplotlib
-```
+* Tkinter
+* numpy
+* pandas
+* matplotlib
 
 From a hardware perspective, the following are needed:
 
-```
-Arduino board
-
-```
+* Arduino board
 
 ### Installing
 
@@ -60,7 +53,6 @@ pip install matplotlib
 * [Arduino](https://www.arduino.cc/en/Guide/Introduction) - A hardware/software board to collect sensor data
 * [Processing](https://processing.org/overview/) - A sketchbook for visual arts with simple Arduino integration
 * [Python](https://www.python.org/about/) - A programming language used here to create exploratory data graphs
-
 * [Pandas](https://pandas.pydata.org/pandas-docs/stable/) - Python library for data manipulation
 * [Matplotlib](https://matplotlib.org/) - Python library for graphing data
 * [Tkinter](https://docs.python.org/2/library/tkinter.html) - Python library for graphical user interfaces (GUI)

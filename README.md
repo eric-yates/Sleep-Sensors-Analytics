@@ -103,3 +103,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](/LICENSE.m
 ## Acknowledgments
 
 * **B_E_N**: For his [tutorial](https://learn.sparkfun.com/tutorials/connecting-arduino-to-processing) on connecting Arduino to Processing  
+* **Elaine Laguerta**: For her [tutorial](http://www.hackerscapes.com/2014/11/how-to-save-data-from-arduino-to-a-csv-file-using-processing/) on saving Arduino data to a CSV file using Processing

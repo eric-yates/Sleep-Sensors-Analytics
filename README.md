@@ -39,6 +39,7 @@ These instructions will get a copy of the project up and running on your local m
 Instructions for installing these software are listed in the next section: Installing. These are the software packages needed to run:
 
 * Arduino IDE
+* i2cdevlib
 * Processing
 * Python **2.7**
 
@@ -52,12 +53,15 @@ These Python packages are also needed:
 From a hardware perspective, the following are needed:
 
 * Arduino board
+* MPU 6050: [Amazon Purchase](https://www.amazon.com/MPU-6050-MPU6050-Accelerometer-Gyroscope-Converter/dp/B008BOPN40) and information from [Arduino](https://playground.arduino.cc/Main/MPU-6050)
 
 ### Installing
 
 Download the latest version of the Arduino IDE [here](https://www.arduino.cc/en/Main/Software). 
 
-Then, download the latest version of Processing [here](https://processing.org/download/).
+Download the latest version of i2cdevlib [here](https://github.com/jrowberg/i2cdevlib), following the instructions provided in the README.
+
+Download the latest version of Processing [here](https://processing.org/download/).
 
 If your computer does not already have Python **2.7** installed, download it [here](https://www.python.org/downloads/).
 
@@ -73,17 +77,14 @@ pip install matplotlib
 
 ## Usage
 
-### 
-
-### Searching for Jobs Other than Data Scientist
-
-
+### Basic
 
 
 ## Built With
 
 * [Arduino](https://www.arduino.cc/en/Guide/Introduction) - A hardware/software board to collect sensor data
-* [SoftwareSerial](https://www.arduino.cc/en/Reference/softwareSerial) - Arduino library for serial communication
+* [i2cdevlib](https://github.com/jrowberg/i2cdevlib) - Library for interfacing with MPU6050 accelerometer
+* [SoftwareSerial](https://www.arduino.cc/en/Reference/softwareSerial) - (Built in) Arduino library for serial communication
 * [Processing](https://processing.org/overview/) - A sketchbook for visual arts with simple Arduino integration
 * [Python](https://www.python.org/about/) - A programming language used here to create exploratory data graphs
 * [Tkinter](https://docs.python.org/2/library/tkinter.html) - Python library for graphical user interfaces (GUI)

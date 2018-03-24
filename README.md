@@ -10,24 +10,24 @@ I've been having poor quality sleep and wake up feeling unrested with "adequate 
 
 ### Target Measures
 
-  1) Movement Level: Objective measure of overall amount of movement during sleep (higher = more movement).
-  2) Restedness Level: Subjective measure of how rested I feel after waking up (higher = more rested).
+* Movement Level: Objective measure of overall amount of movement during sleep (higher = more movement).
+* Restedness Level: Subjective measure of how rested I feel after waking up (higher = more rested).
 
 ### Hypotheses
 
-  1) Lower movement level correlates with increased restedness level.
-  2) Movement level will be lower with lower ambient light levels.
-  3) Movement level will be lower with temperatures in the low 60's Fahrenheit.
-  4) Movement level will be lower with decreased amount of caffeine consumption.
-  5) Movement level will be lower with longer time between consumption and sleep time.
-  6) Higher duration of sleep will correlate with higher restedness level.
+* Lower movement level correlates with increased restedness level.
+* Movement level will be lower with lower ambient light levels.
+* Movement level will be lower with temperatures in the low 60's Fahrenheit.
+* Movement level will be lower with decreased amount of caffeine consumption.
+* Movement level will be lower with longer time between consumption and sleep time.
+* Higher duration of sleep will correlate with higher restedness level.
 
 ### Data Sources
 
-  1) Accelerometer: Tracks x/y/z accelerator and x/y/z angular velocity
-  2) Photoresistor: Track ambient light levels
-  3) Temperature Sensor: Tracks temperature in celsius
-  4) Humidity Sensor: Tracks relative humidity
+* Accelerometer: Tracks x/y/z accelerator and x/y/z angular velocity
+* Photoresistor: Track ambient light levels
+* Temperature Sensor: Tracks temperature in celsius
+* Humidity Sensor: Tracks relative humidity
 
 
 ## Getting Started

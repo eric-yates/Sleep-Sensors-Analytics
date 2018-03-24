@@ -52,8 +52,12 @@ These Python packages are also needed:
 
 From a hardware perspective, the following are needed:
 
-* Arduino board
-* MPU 6050: [Amazon Purchase](https://www.amazon.com/MPU-6050-MPU6050-Accelerometer-Gyroscope-Converter/dp/B008BOPN40) and information from [Arduino](https://playground.arduino.cc/Main/MPU-6050)
+* Arduino board: The [Arduino Uno](https://www.amazon.com/Arduino-Uno-R3-Microcontroller-A000066/dp/B008GRTSV6) is a good option
+* Breadboard: Something like [this](https://www.amazon.com/BB400-Solderless-Plug-BreadBoard-tie-points/dp/B0040Z1ERO)
+* MPU 6050: Accelerometer available for purchase from [Amazon](https://www.amazon.com/MPU-6050-MPU6050-Accelerometer-Gyroscope-Converter/dp/B008BOPN40) and more information from [Arduino](https://playground.arduino.cc/Main/MPU-6050)
+* DHT22: Temperature/humidity sensor available for purchase from [Amazon](https://www.amazon.com/SMAKN%C2%AE-Digital-Temperature-Humidity-Measurement/dp/B00MIBRFTI) or [Adafruit](https://www.adafruit.com/product/385)
+* Photoresistor: Any type should do. This one from [Adafruit](https://www.adafruit.com/product/161) will work
+* Male-to-male ribbon cable: Something like [this](https://www.amazon.com/40pcs-Color-Ribbon-Jumper-Arduino/dp/B00DFVD1TS)
 
 ### Installing
 
